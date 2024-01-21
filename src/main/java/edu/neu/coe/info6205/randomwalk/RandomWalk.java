@@ -21,8 +21,8 @@ public class RandomWalk {
      */
     private void move(int dx, int dy) {
         // TO BE IMPLEMENTED  do move
-        x+=dx;
-        y+=dy;
+        x+= dx;
+        y+= dy;
 
 //        // SKELETON
 //         throw new RuntimeException("Not implemented");
@@ -87,13 +87,19 @@ public class RandomWalk {
     }
 
     public static void main(String[] args) {
-        if (args.length == 0)
-            throw new RuntimeException("Syntax: RandomWalk steps [experiments]");
-        int m = Integer.parseInt(args[0]);
-        int n = 30;
-        if (args.length > 1) n = Integer.parseInt(args[1]);
-        double meanDistance = randomWalkMulti(m, n);
-        System.out.println(m + " steps: " + meanDistance + " over " + n + " experiments");
+
+        int[] mList = {10, 20, 30, 40, 50, 60}; // set value of m
+        int n = 50; // run n=50 times
+
+        for (int m : mList) {
+            double totalDistance = 0;
+            for (int i = 0; i < n; i++) {
+                totalDistance += randomWalkMulti(m, 1);
+            }
+            double averageDistance = totalDistance / n;
+            System.out.println("Average distance for " + m + " steps: " + averageDistance);
+        }
     }
+
 
 }
