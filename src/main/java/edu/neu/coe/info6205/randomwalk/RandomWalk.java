@@ -88,8 +88,8 @@ public class RandomWalk {
 
     public static void main(String[] args) {
 
-        int[] mList = {10, 20, 30, 40, 50, 60}; // set value of m
-        int n = 50; // run n=50 times
+        int[] mList = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}; // set value of m
+        int n = 1000; // run n=1000 times
 
         for (int m : mList) {
             double totalDistance = 0;
