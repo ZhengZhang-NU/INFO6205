@@ -21,11 +21,12 @@ public class RandomWalk {
      */
     private void move(int dx, int dy) {
         // TO BE IMPLEMENTED  do move
+        x+=dx;
+        y+=dy;
 
-
-        // SKELETON
-         throw new RuntimeException("Not implemented");
-        // END SOLUTION
+//        // SKELETON
+//         throw new RuntimeException("Not implemented");
+//        // END SOLUTION
     }
 
     /**
@@ -35,9 +36,12 @@ public class RandomWalk {
      */
     private void randomWalk(int m) {
         // TO BE IMPLEMENTED 
+        for(int i=0; i<m; i++ ){
+            randomMove();
+        }
 
 
-throw new RuntimeException("implementation missing");
+//throw new RuntimeException("implementation missing");
     }
 
     /**
@@ -58,9 +62,11 @@ throw new RuntimeException("implementation missing");
     public double distance() {
         // TO BE IMPLEMENTED 
 
-        // SKELETON
-         return 0.0;
-        // END SOLUTION
+        return Math.sqrt(x*x+y*y);
+
+//        // SKELETON
+//         return 0.0;
+//        // END SOLUTION
     }
 
     /**
