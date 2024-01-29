@@ -15,6 +15,7 @@ import java.util.List;
 public class ThreeSumQuadratic implements ThreeSum {
     /**
      * Construct a ThreeSumQuadratic on a.
+     *
      * @param a a sorted array.
      */
     public ThreeSumQuadratic(int[] a) {
@@ -49,10 +50,10 @@ public class ThreeSumQuadratic implements ThreeSum {
                 triples.add(new Triple(a[left], a[j], a[right]));
                 left--;
                 right++;
-            } else if (sum > 0) {
+            } else if (sum > 0) {//move the left pointer to find when the sum is 0
                 left--;
             } else {
-                right++;
+                right++;////move the right pointer to find when the sum is 0
             }
         }
         return triples;

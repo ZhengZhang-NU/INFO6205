@@ -28,7 +28,7 @@ class ThreeSumQuadrithmic implements ThreeSum {
     public Triple[] getTriples() {
         List<Triple> triples = new ArrayList<>();
         for (int i = 0; i < length; i++)
-            for (int j = i + 1; j < length; j++) {
+            for (int j = i + 1; j < length; j++) {//two loops for searching element pair
                 Triple triple = getTriple(i, j);
                 if (triple != null) triples.add(triple);
             }
@@ -37,7 +37,7 @@ class ThreeSumQuadrithmic implements ThreeSum {
     }
 
     public Triple getTriple(int i, int j) {
-        int index = Arrays.binarySearch(a, -a[i] - a[j]);
+        int index = Arrays.binarySearch(a, -a[i] - a[j]); //search the complement value of element pair
         if (index >= 0 && index > j) return new Triple(a[i], a[j], a[index]);
         else return null;
     }
