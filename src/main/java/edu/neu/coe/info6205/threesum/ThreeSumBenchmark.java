@@ -36,14 +36,31 @@ public class ThreeSumBenchmark {
         if (description.equals("ThreeSumCubic") && n > 4000) return;
         // TO BE IMPLEMENTED 
 
+        Benchmark_Timer<int[]> timer = new Benchmark_Timer<>(description, null, function, null);
 
+        // Measure the execution time using the supplier to generate test data
+        long startTime = System.nanoTime(); // Start time in nanoseconds
+        for (int i = 0; i < runs; i++) {
+            int[] testData = supplier.get(); // Generate test data
+            function.accept(testData); // Execute the algorithm
+        }
+        long endTime = System.nanoTime(); // End time in nanoseconds
+        long totalTime = endTime - startTime; // Total execution time in nanoseconds
 
+        // Calculate the average time per run in milliseconds
+        double averageTimeMs = (totalTime / 1e6) / runs;
 
+        // Log the raw time
+        System.out.println(description + " - Raw average time per run (ms): " + String.format("%.3f", averageTimeMs));
 
+        // If time loggers are provided, use them to log the normalized time
+        if (timeLoggers != null) {
+            for (TimeLogger logger : timeLoggers) {
+                logger.log(averageTimeMs, n);
+            }
+        }
 
-
-
-throw new RuntimeException("implementation missing");
+//throw new RuntimeException("implementation missing");
     }
 
     private final static TimeLogger[] timeLoggersCubic = {
