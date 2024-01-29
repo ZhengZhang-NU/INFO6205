@@ -22,6 +22,7 @@ class ThreeSumQuadrithmic implements ThreeSum {
     public ThreeSumQuadrithmic(int[] a) {
         this.a = a;
         length = a.length;
+
     }
 
     public Triple[] getTriples() {
