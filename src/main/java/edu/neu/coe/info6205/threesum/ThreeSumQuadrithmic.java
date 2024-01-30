@@ -17,6 +17,7 @@ import java.util.List;
 class ThreeSumQuadrithmic implements ThreeSum {
     /**
      * Construct a ThreeSumQuadrithmic on a.
+     *
      * @param a a sorted array.
      */
     public ThreeSumQuadrithmic(int[] a) {
@@ -37,8 +38,10 @@ class ThreeSumQuadrithmic implements ThreeSum {
     }
 
     public Triple getTriple(int i, int j) {
+
         int index = Arrays.binarySearch(a, -a[i] - a[j]); //search the complement value of element pair
-        if (index >= 0 && index > j) return new Triple(a[i], a[j], a[index]);
+        if (index >= 0 && index > j)
+            return new Triple(a[i], a[j], a[index]);
         else return null;
     }
 

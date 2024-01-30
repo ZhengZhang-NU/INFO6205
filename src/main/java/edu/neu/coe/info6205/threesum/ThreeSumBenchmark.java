@@ -38,16 +38,16 @@ public class ThreeSumBenchmark {
 
         Benchmark_Timer<int[]> timer = new Benchmark_Timer<>(description, null, function, null);
 
-        // Measure the execution time using the supplier to generate test data
-        long startTime = System.nanoTime(); // Start time in nanoseconds
+
+        long startTime = System.nanoTime(); // Start time in nanoseconds, or the time is too tiny to detect.
         for (int i = 0; i < runs; i++) {
-            int[] testData = supplier.get(); // Generate test data
+            int[] testData = supplier.get(); // Generate test data by Supplier
             function.accept(testData); // Execute the algorithm
         }
         long endTime = System.nanoTime(); // End time in nanoseconds
-        long totalTime = endTime - startTime; // Total execution time in nanoseconds
+        long totalTime = endTime - startTime; // Total execution time
 
-        // Calculate the average time per run in milliseconds
+        // Average time
         double averageTimeMs = (totalTime / 1e6) / runs;
 
         // Log the raw time
