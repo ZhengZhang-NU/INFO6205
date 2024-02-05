@@ -21,9 +21,6 @@ public class InsertionSortBasic {
 
 
 
-
-
-
 throw new RuntimeException("implementation missing");
     }
 

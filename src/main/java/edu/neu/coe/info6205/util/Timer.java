@@ -62,32 +62,20 @@ public class Timer {
     public <T, U> double repeat(int n, boolean warmup, Supplier<T> supplier, Function<T, U> function, UnaryOperator<T> preFunction, Consumer<U> postFunction) {
         // TO BE IMPLEMENTED : note that the timer is running when this method is called and should still be running when it returns.
 
+        long totalTicks = 0;
+        for (int i = 0; i < n; i++) {
+            T input = supplier.get();
+            if (preFunction != null) input = preFunction.apply(input);
+            long start = getClock();
+            U result = function.apply(input);
+            long end = getClock();
+            totalTicks += (end - start);
+            if (postFunction != null) postFunction.accept(result);
+        }
+        return toMillisecs(totalTicks) / n;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // SKELETON
-         return 0;
         // END SOLUTION
     }
 
@@ -213,10 +201,11 @@ public class Timer {
      * @return the number of ticks for the system clock. Currently defined as nano time.
      */
     private static long getClock() {
-        // TO BE IMPLEMENTED 
+        // TO BE IMPLEMENTED
 
+        return System.nanoTime();
         // SKELETON
-         return 0;
+
         // END SOLUTION
     }
 
@@ -231,7 +220,8 @@ public class Timer {
         // TO BE IMPLEMENTED 
 
         // SKELETON
-         return 0;
+        return ticks / 1_000_000.0;
+
         // END SOLUTION
     }
 
