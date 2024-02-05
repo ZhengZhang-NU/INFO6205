@@ -167,7 +167,7 @@ public void testRepeat2() {//The original test gives the result of 0, the new on
     @Test // Slow
     public void testRepeat4() {
         final Timer timer = new Timer();
-        final int zzz = 100; // 假设的工作负载
+        final int zzz = 100;
         final double mean = timer.repeat(10,
                 false,
                 () -> zzz,
