@@ -111,20 +111,6 @@ public class TimerTest {
         assertEquals(0, post);
     }
 
-//    @Test
-//    public void testRepeat2() {
-//        final Timer timer = new Timer();
-//        final int zzz = 100;
-//        final double mean = timer.repeat(10, () -> zzz, t -> {
-//            GoToSleep(10, 0);
-//            return null;
-//        });
-//        assertEquals(10, new PrivateMethodTester(timer).invokePrivate("getLaps"));
-//        assertEquals(zzz, mean, 100);
-//        assertEquals(10, run);
-//        assertEquals(0, pre);
-//        assertEquals(0, post);
-//    }
 @Test
 public void testRepeat2() {//The original test gives the result of 0, the new one can pass the test
     final Timer timer = new Timer();

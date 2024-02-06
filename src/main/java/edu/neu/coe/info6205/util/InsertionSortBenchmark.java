@@ -8,13 +8,25 @@ import java.util.Random;
 
 public class InsertionSortBenchmark {
 
+    private static void warmup(InsertionSort<Integer> sorter, Integer[] array) {   // warm-up
+
+        int warmupIterations = 10;
+        for (int i = 0; i < warmupIterations; i++) {
+            Integer[] tempArray = array.clone();
+            sorter.sort(tempArray, 0, tempArray.length);
+        }
+    }
+
+
     public static void main(String[] args) {
         Benchmark_Timer<Integer[]> timer = new Benchmark_Timer<>(
                 "InsertionSort Benchmark",
                 null,
                 arr -> {
                     InsertionSort<Integer> sorter = new InsertionSort<>();
-                    sorter.sort(arr.clone(), 0, arr.length); // Use clone to avoid sorting already sorted array
+                    warmup(sorter, arr.clone());
+
+                    sorter.sort(arr.clone(), 0, arr.length);
                 },
                 null
         );
@@ -46,6 +58,8 @@ public class InsertionSortBenchmark {
             System.out.println();
         }
     }
+
+
 
     private static Integer[] generateRandomArray(int size) {
         Random random = new Random();
