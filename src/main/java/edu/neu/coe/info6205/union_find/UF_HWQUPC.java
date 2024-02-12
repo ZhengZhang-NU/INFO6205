@@ -81,13 +81,30 @@ public class UF_HWQUPC implements UF {
     public int find(int p) {
         validate(p);
         int root = p;
-        // TO BE IMPLEMENTED 
+        // TO BE IMPLEMENTED
 
 
+        // Traverse up the tree until reaching the root
+        while (root != parent[root]) {
+            if (pathCompression) {
+                doPathCompression(root);
+            }
+            root = parent[root];
+        }
 
 
+        if (pathCompression) {  //let every node on the path point directly to the root
+            while (p != root) {
+                int next = parent[p];
+                parent[p] = root;
+                p = next;
+            }
+        }
+        return root;
 
-throw new RuntimeException("implementation missing");
+
+//
+//throw new RuntimeException("implementation missing");
     }
 
     /**
@@ -175,11 +192,16 @@ throw new RuntimeException("implementation missing");
     private void mergeComponents(int i, int j) {
         // TO BE IMPLEMENTED  make shorter root point to taller one
 
+        if (i == j) return;  //Avoid merging a component with itself
 
-
-
-
-
+        if (height[i] < height[j]) {  // Link root of shorter tree to root of taller tree
+            parent[i] = j;
+        } else if (height[j] < height[i]) {
+            parent[j] = i;
+        } else {
+            parent[j] = i;
+            height[i]++;
+        }
 
         // SKELETON
         // END SOLUTION
@@ -190,6 +212,12 @@ throw new RuntimeException("implementation missing");
      */
     private void doPathCompression(int i) {
         // TO BE IMPLEMENTED  update parent to value of grandparent
+
+
+        while (i != parent[i]) {  //path halving technique
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        }
 
         // SKELETON
         // END SOLUTION
