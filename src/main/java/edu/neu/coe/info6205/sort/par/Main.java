@@ -20,10 +20,23 @@ public class Main {
         processArgs(args);
         System.out.println("Degree of parallelism: " + ForkJoinPool.getCommonPoolParallelism());
         Random random = new Random();
+
+        ForkJoinPool myPool = new ForkJoinPool(4);//
+        ParSort.setPool(myPool);
+
+
         int[] array = new int[2000000];
         ArrayList<Long> timeList = new ArrayList<>();
-        for (int j = 50; j < 100; j++) {
-            ParSort.cutoff = 10000 * (j + 1);
+
+        for (int j = 1; j <= 40; j++) {
+            ParSort.cutoff = 50000 * j;// modify the range of cutoff
+
+//            for (int cutoff = 900000; cutoff <= 1005000; cutoff += 1000) {
+//                ParSort.cutoff = cutoff;
+
+//            for (int cutoff = 50000; cutoff <= 3000000; cutoff += 50000) {
+//                ParSort.cutoff = cutoff;
+
             // for (int i = 0; i < array.length; i++) array[i] = random.nextInt(10000000);
             long time;
             long startTime = System.currentTimeMillis();
@@ -45,7 +58,8 @@ public class Main {
             BufferedWriter bw = new BufferedWriter(isr);
             int j = 0;
             for (long i : timeList) {
-                String content = (double) 10000 * (j + 1) / 2000000 + "," + (double) i / 10 + "\n";
+//                String content = (double) 10000 * (j + 1) / 2000000 + "," + (double) i / 10 + "\n";
+                String content = (double) 50000 * j+ "," + (double) i / 10 + "\n";
                 j++;
                 bw.write(content);
                 bw.flush();
