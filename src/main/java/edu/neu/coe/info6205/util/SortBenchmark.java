@@ -3,13 +3,8 @@
  */
 package edu.neu.coe.info6205.util;
 
-import edu.neu.coe.info6205.sort.BaseHelper;
-import edu.neu.coe.info6205.sort.Helper;
-import edu.neu.coe.info6205.sort.SortWithHelper;
-import edu.neu.coe.info6205.sort.elementary.BubbleSort;
-import edu.neu.coe.info6205.sort.elementary.InsertionSort;
-import edu.neu.coe.info6205.sort.elementary.RandomSort;
-import edu.neu.coe.info6205.sort.elementary.ShellSort;
+import edu.neu.coe.info6205.sort.*;
+import edu.neu.coe.info6205.sort.elementary.*;
 import edu.neu.coe.info6205.sort.linearithmic.TimSort;
 import edu.neu.coe.info6205.sort.linearithmic.*;
 
@@ -67,6 +62,8 @@ public class SortBenchmark {
         }
     }
 
+
+
     /**
      * Method to run pure (non-instrumented) string sorter benchmarks.
      * <p>
@@ -86,14 +83,24 @@ public class SortBenchmark {
         if (isConfigBenchmarkStringSorter("mergesort"))
             runMergeSortBenchmark(words, nWords, nRuns, isConfigBenchmarkMergeSort("insurance"), isConfigBenchmarkMergeSort("nocopy"));
 
+
         if (isConfigBenchmarkStringSorter("quicksort3way"))
             runStringSortBenchmark(words, nWords, nRuns, new QuickSort_3way<>(nWords, config), timeLoggersLinearithmic);
 
         if (isConfigBenchmarkStringSorter("quicksortDualPivot"))
             runStringSortBenchmark(words, nWords, nRuns, new QuickSort_DualPivot<>(nWords, config), timeLoggersLinearithmic);
 
+
+
         if (isConfigBenchmarkStringSorter("quicksort"))
             runStringSortBenchmark(words, nWords, nRuns, new QuickSort_Basic<>(nWords, config), timeLoggersLinearithmic);
+
+
+        if (isConfigBenchmarkStringSorter("heapsort")) {
+            Helper<String> helper = HelperFactory.create("Heapsort", nWords, config);
+            runStringSortBenchmark(words, nWords, nRuns, new HeapSort<>(helper), timeLoggersLinearithmic);
+        }      // added
+
 
         if (isConfigBenchmarkStringSorter("introsort"))
             runStringSortBenchmark(words, nWords, nRuns, new IntroSort<>(nWords, config), timeLoggersLinearithmic);
@@ -129,6 +136,7 @@ public class SortBenchmark {
         if (isConfigBenchmarkStringSorter("mergesort"))
             runMergeSortBenchmark(words, nWords, nRuns, isConfigBenchmarkMergeSort("insurance"), isConfigBenchmarkMergeSort("nocopy"));
 
+
         if (isConfigBenchmarkStringSorter("quicksort3way"))
             runStringSortBenchmark(words, nWords, nRuns, new QuickSort_3way<>(nWords, config), timeLoggersLinearithmic);
 
@@ -137,6 +145,12 @@ public class SortBenchmark {
 
         if (isConfigBenchmarkStringSorter("quicksort"))
             runStringSortBenchmark(words, nWords, nRuns, new QuickSort_Basic<>(nWords, config), timeLoggersLinearithmic);
+
+
+        if (isConfigBenchmarkStringSorter("heapsort")) {
+            Helper<String> helper = HelperFactory.create("Heapsort", nWords, config);
+            runStringSortBenchmark(words, nWords, nRuns, new HeapSort<>(helper), timeLoggersLinearithmic);
+        }//added
 
         if (isConfigBenchmarkStringSorter("introsort"))
             runStringSortBenchmark(words, nWords, nRuns, new IntroSort<>(nWords, config), timeLoggersLinearithmic);
@@ -152,6 +166,7 @@ public class SortBenchmark {
         if (isConfigBenchmarkStringSorter("bubblesort"))
             runStringSortBenchmark(words, nWords, nRuns / 10, new BubbleSort<>(nWords, config), timeLoggersQuadratic);
     }
+
 
     private static void runPureSystemSortBenchmark(String[] words, int nWords, int nRuns, Random random) {
         Benchmark<String[]> benchmark = new Benchmark_Timer<>("SystemSort", null, Arrays::sort, null);
@@ -260,6 +275,7 @@ public class SortBenchmark {
     public static void runStringSortBenchmark(String[] words, int nWords, int nRuns, SortWithHelper<String> sorter, TimeLogger[] timeLoggers) {
         runStringSortBenchmark(words, nWords, nRuns, sorter, sorter::preProcess, timeLoggers);
     }
+
 
     /**
      * Method to run a sorting benchmark, using an explicit preProcessor.
@@ -398,4 +414,5 @@ public class SortBenchmark {
     }
 
     private final Config config;
+
 }

@@ -299,6 +299,30 @@ public class QuickSortDualPivotTest {
         assertEquals(13, privateMethodTester.invokePrivate("getSwaps"));
     }
 
+    @Test
+    public void testQuickSortDualPivotForN() throws Exception {
+        int N = 160000;// By updating N to get StatPack info
+        final Config config = Config.setupConfig("true", "0", "1", "", "");
+        final Helper<Integer> helper = new InstrumentedHelper<>("quickSortDualPivot", N, config);
+        Sort<Integer> sort = new QuickSort_DualPivot<>(helper);
+        sort.init(N);
+        final Integer[] array = helper.random(Integer.class, r -> r.nextInt(10000));
+        helper.preProcess(array);
+        Integer[] sortedArray = sort.sort(array);
+        assertTrue(helper.sorted(sortedArray));
+        helper.postProcess(sortedArray);
+
+
+        final PrivateMethodTester tester = new PrivateMethodTester(helper);
+        final StatPack statPack = (StatPack) tester.invokePrivate("getStatPack");
+        System.out.println(statPack);
+        System.out.println("Comparisons: " + statPack.getStatistics(InstrumentedHelper.COMPARES).mean());
+        System.out.println("Swaps: " + statPack.getStatistics(InstrumentedHelper.SWAPS).mean());
+        System.out.println("Copies: " + statPack.getStatistics(InstrumentedHelper.COPIES).mean());
+        System.out.println("Hits: " + statPack.getStatistics(InstrumentedHelper.HITS).mean());
+    }
+
+
     private static String[] setupWords(final int n) {
         if (n > 36) throw new RuntimeException("cannot have n > 36");
         String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";

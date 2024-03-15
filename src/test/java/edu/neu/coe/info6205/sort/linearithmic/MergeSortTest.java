@@ -387,6 +387,34 @@ public class MergeSortTest {
         assertTrue(helper.sorted(sorted));
     }
 
+    @Test
+    public void testSortForSizeN() throws Exception {
+        int N = 80000;// By updating N to get StatPack info
+        final Config config = Config.setupConfig("true", "0", "1", "", ""); // 确保配置正确
+        final Helper<Integer> helper = HelperFactory.create("merge sort", N, config);
+        Sort<Integer> s = new MergeSort<>(helper);
+        s.init(N);
+        final Integer[] xs = helper.random(Integer.class, r -> r.nextInt(10000));
+        helper.preProcess(xs);
+        Integer[] ys = s.sort(xs);
+        helper.postProcess(ys);
+        final PrivateMethodTester privateMethodTester = new PrivateMethodTester(helper);
+        final StatPack statPack = (StatPack) privateMethodTester.invokePrivate("getStatPack");
+        System.out.println(statPack);
+
+        final int compares = (int) statPack.getStatistics(InstrumentedHelper.COMPARES).mean();
+        final int swaps = (int) statPack.getStatistics(InstrumentedHelper.SWAPS).mean();
+        final int copies = (int) statPack.getStatistics(InstrumentedHelper.COPIES).mean();
+        final int hits = (int) statPack.getStatistics(InstrumentedHelper.HITS).mean();
+
+        System.out.println("Compares: " + compares);
+        System.out.println("Swaps: " + swaps);
+        System.out.println("Copies: " + copies);
+        System.out.println("Hits: " + hits);
+
+    }
+
+
     final static LazyLogger logger = new LazyLogger(MergeSort.class);
 
     private static Config config;

@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -119,6 +120,29 @@ public class HeapSortTest {
         // Since we set a specific seed, this should always succeed.
         assertEquals(944, compares); // TODO check this.
     }
+
+    @Test
+    public void sortN() throws Exception {// based on the sort2 test method, use this method to get StatPack by updated the value of n
+        final Config config = Config.setupConfig("true", "0", "1", "", "");
+        int n = 160000;
+        Helper<Integer> helper = HelperFactory.create("HeapSort", n, config);
+        helper.init(n);
+        final PrivateMethodTester privateMethodTester = new PrivateMethodTester(helper);
+        final StatPack statPack = (StatPack) privateMethodTester.invokePrivate("getStatPack");
+        Integer[] xs = helper.random(Integer.class, r -> r.nextInt(1000));
+        SortWithHelper<Integer> sorter = new HeapSort<Integer>(helper);
+        sorter.preProcess(xs);
+//        System.out.println(Arrays.toString(xs));
+        Integer[] ys = sorter.sort(xs);
+//        System.out.println(Arrays.toString(ys));
+        assertTrue(helper.sorted(ys));
+        sorter.postProcess(ys);
+        System.out.println(statPack);
+
+    }
+
+
+
 
     final static LazyLogger logger = new LazyLogger(HeapSort.class);
 
